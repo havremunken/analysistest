@@ -22,7 +22,7 @@ namespace AnalysisLibrary
 
         public IEnumerable<AnalysisBundle> PerformAnalysis()
         {
-            var analyzer = new BruteForceEngine(_matches);
+            var analyzer = new ParallelBruteForceEngine(_matches);
 
             analyzer.AnalyzeOutcomes(_bundles);
 

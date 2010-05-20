@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisBundle.cs" />
+    <Compile Include="AnalysisEngines\ParallelBruteForceEngine.cs" />
     <Compile Include="Analyzer.cs" />
     <Compile Include="AnalysisEngines\BaseAnalysisEngine.cs" />
     <Compile Include="AnalysisEngines\BruteForceEngine.cs" />
