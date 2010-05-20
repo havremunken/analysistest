@@ -42,9 +42,9 @@
   <ItemGroup>
     <Compile Include="AnalysisBundle.cs" />
     <Compile Include="Analyzer.cs" />
-    <Compile Include="BaseAnalysisEngine.cs" />
-    <Compile Include="BruteForceEngine.cs" />
-    <Compile Include="IAnalysisEngine.cs" />
+    <Compile Include="AnalysisEngines\BaseAnalysisEngine.cs" />
+    <Compile Include="AnalysisEngines\BruteForceEngine.cs" />
+    <Compile Include="Interfaces\IAnalysisEngine.cs" />
     <Compile Include="PositionOutcome.cs" />
     <Compile Include="SimpleMatch.cs" />
     <Compile Include="SimpleTeam.cs" />
