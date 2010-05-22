@@ -49,6 +49,9 @@ namespace AnalysisLibrary.AnalysisEngines
 
         public override void AnalyzeOutcomes(IEnumerable<AnalysisBundle> bundles)
         {
+            var _bundles = new List<AnalysisBundle>(FilterImpossibleBundles(bundles, _matches));
+
+            // About chunkSize:
             // 1. Should probably be a parameter somehow
             // 2. Should be a few orders of magnitude larger
             long chunkSize = 100;
@@ -63,21 +66,10 @@ namespace AnalysisLibrary.AnalysisEngines
                 {
                     foreach (var outcomeArray in chunk)
                     {
-                        var orderedList = new List<ResultTeam>(CalculateOutcome(outcomeArray, (from b in bundles
+                        var orderedList = new List<ResultTeam>(CalculateOutcome(outcomeArray, (from b in _bundles
                                                                                                select b.Team).Distinct()));
 
-                        for (int i = 1; i <= orderedList.Count; i++)
-                        {
-                            // TODO: Care about equal points
-
-                            var team = orderedList[i - 1];
-                            var bundle = bundles.Where(t => t.Team.TeamName == team.TeamName).Where(t => t.Position == i).Single();
-                            if (bundle.Outcome != PositionOutcome.Possible)
-                            {
-                                Console.WriteLine("Position #{0} is now possible for {1}!", i, team.TeamName);
-                                bundle.Outcome = PositionOutcome.Possible;
-                            }
-                        }
+                        UpdateBundles(orderedList, _bundles);
                     }
 
                 });

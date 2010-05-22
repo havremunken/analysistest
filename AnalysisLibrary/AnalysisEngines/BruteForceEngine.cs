@@ -21,18 +21,7 @@ namespace AnalysisLibrary.AnalysisEngines
                 var orderedList = new List<ResultTeam>(CalculateOutcome(outcomeArray, (from b in bundles
                                                                                        select b.Team).Distinct()));
 
-                for (int i = 1; i <= orderedList.Count; i++)
-                {
-                    // TODO: Care about equal points
-
-                    var team = orderedList[i-1];
-                    var bundle = bundles.Where(t => t.Team.TeamName == team.TeamName).Where(t => t.Position == i).Single();
-                    if (bundle.Outcome != PositionOutcome.Possible)
-                    {
-                        //Console.WriteLine("Position #{0} is now possible for {1}!", i, team.TeamName);
-                        bundle.Outcome = PositionOutcome.Possible;
-                    }
-                }
+                UpdateBundles(orderedList, bundles);
             }
         }
 

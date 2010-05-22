@@ -9,7 +9,7 @@ namespace AnalysisLibrary.Interfaces
     {
         string Name { get; }
 
-        event Action ResultsUpdated;
+        event Action<AnalysisBundle> ResultsUpdated;
 
         event Action ProcessFinished;
 

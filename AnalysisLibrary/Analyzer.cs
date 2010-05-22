@@ -12,6 +12,8 @@ namespace AnalysisLibrary
         private List<SimpleMatch> _matches;
         private List<AnalysisBundle> _bundles;
 
+        public event Action<AnalysisBundle> ResultsUpdated;
+
         public Analyzer(IEnumerable<SimpleTeam> teams, IEnumerable<SimpleMatch> remainingMatches)
         {
             _teams = new List<SimpleTeam>(teams);
@@ -24,9 +26,17 @@ namespace AnalysisLibrary
         {
             var analyzer = new ParallelBruteForceEngine(_matches);
 
+            analyzer.ResultsUpdated += new Action<AnalysisBundle>(analyzer_ResultsUpdated);
+
             analyzer.AnalyzeOutcomes(_bundles);
 
             return _bundles;
+        }
+
+        void analyzer_ResultsUpdated(AnalysisBundle bundle)
+        {
+            if (ResultsUpdated != null)
+                ResultsUpdated(bundle);
         }
 
         private void CreateBundles()
